@@ -1,15 +1,23 @@
 import "./App.css";
 
-import { Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import React, { Suspense } from "react";
 
-import Busqueda from "./containers/Busqueda";
-import React from "react";
+import CajaBusqueda from "./containers/CajaBusqueda";
+import Header from "./components/Header";
+import ResultadosBusqueda from "./containers/ResultadosBusqueda";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Busqueda />} />
-    </Routes>
+    <BrowserRouter>
+      <Header />
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<CajaBusqueda />} />
+          <Route path="/items?search=" element={<ResultadosBusqueda />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
