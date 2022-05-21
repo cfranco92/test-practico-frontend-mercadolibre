@@ -1,3 +1,4 @@
+import { Product } from "../../models/product";
 import { SITES_API } from "../../constants";
 import { Search } from "../../models/search";
 import { apiBaseQuery } from "../base";
@@ -36,7 +37,7 @@ export const sitesApi = createApi({
   tagTypes: ["Sites"],
   endpoints(builder) {
     return {
-      fetchSearch: builder.query<Object, FetchProductQueryParams>({
+      fetchSearch: builder.query<Product, FetchProductQueryParams>({
         query: (queryParams) => ({
           url: `/MLA/search?q=${queryParams.query}`,
           method: "GET",

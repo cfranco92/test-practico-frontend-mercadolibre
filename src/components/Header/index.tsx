@@ -1,9 +1,9 @@
+import { IconButton, useMediaQuery, useTheme } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { IconButton } from "@mui/material";
 import { LOGO_MERCADO_LIBRE } from "../../constants";
 import Search from "./StyledComponents/Search";
 import SearchIcon from "@mui/icons-material/Search";
@@ -14,6 +14,8 @@ import Toolbar from "@mui/material/Toolbar";
 function Header() {
   const navigate = useNavigate();
   const [query, setQuery] = useState<string>("");
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
 
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(event.target.value);
@@ -24,18 +26,9 @@ function Header() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, position: "fixed" }}>
-      <AppBar>
-        <Toolbar
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "100%",
-            margin: "0",
-          }}
-        >
+    <Box sx={{ position: "fixed" }}>
+      <AppBar sx={{ px: matches ? "8.5rem" : "2rem", m: 0 }}>
+        <Toolbar>
           <Link to="/">
             <img src={LOGO_MERCADO_LIBRE} alt="Mercadolibre" />
           </Link>
