@@ -5,8 +5,8 @@ export interface Item {
   picture: String;
   condition: String;
   free_shipping: Boolean;
-  sold_quantity: Number;
-  description: String;
+  sold_quantity?: Number;
+  description?: String;
 }
 
 export interface Price {

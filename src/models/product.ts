@@ -3,5 +3,6 @@ import { Item } from "./item";
 
 export interface Product {
   author: Author;
-  item: Item;
+  categories: string[];
+  items: Item[];
 }

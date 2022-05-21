@@ -1,7 +1,7 @@
+import { ITEMS_API } from "../../constants";
 import { Product } from "../../models/product";
 import { apiBaseQuery } from "../base";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import { itemAPI } from "../../constants";
 
 interface FetchProductQueryParams {
   id: string;
@@ -9,7 +9,7 @@ interface FetchProductQueryParams {
 
 export const itemsApi = createApi({
   reducerPath: "itemsApi",
-  baseQuery: apiBaseQuery(itemAPI),
+  baseQuery: apiBaseQuery(ITEMS_API),
   tagTypes: ["Items"],
   endpoints(builder) {
     return {

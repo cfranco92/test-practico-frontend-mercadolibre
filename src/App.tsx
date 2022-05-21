@@ -14,7 +14,7 @@ function App() {
       <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<CajaBusqueda />} />
-          <Route path="/items?search=" element={<ResultadosBusqueda />} />
+          <Route path="/items" element={<ResultadosBusqueda />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

@@ -3,7 +3,6 @@ import "./index.css";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import React from "react";
 import ReactDOM from "react-dom/client";
