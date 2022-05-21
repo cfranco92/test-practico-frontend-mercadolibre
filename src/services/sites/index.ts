@@ -1,4 +1,5 @@
 import { SITES_API } from "../../constants";
+import { Search } from "../../models/search";
 import { apiBaseQuery } from "../base";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
@@ -50,7 +51,7 @@ export const sitesApi = createApi({
 });
 
 function sitesFromData(data: SiteData) {
-  const site = {
+  const site: Search = {
     author: {
       name: "Cristian",
       lastname: "Franco",

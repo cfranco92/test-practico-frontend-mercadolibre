@@ -1,7 +1,10 @@
 import React, { useEffect } from "react";
 
+import { Box } from "@mui/material";
+import { Item } from "../../models/item";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
+import ProductCard from "./components/ProductCard";
 import { sitesApi } from "../../services/sites";
 import useQueryParams from "../../hooks/useQueryParams";
 
@@ -22,16 +25,23 @@ const ResultadosBusqueda = () => {
     }
   }, [fetchSearch, search]);
 
-  useEffect(() => {
-    if (searchResponse) {
-      console.log(searchResponse);
-    }
-  }, [searchResponse]);
-
   return (
     <Layout id="resultados-busqueda">
       {isLoading && <Loader />}
       {isError && "Something went wrong"}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          px: "160px",
+        }}
+      >
+        {searchResponse &&
+          Object(searchResponse).items.map((item: Item) => (
+            <ProductCard product={item} key={item.id} />
+          ))}
+      </Box>
     </Layout>
   );
 };

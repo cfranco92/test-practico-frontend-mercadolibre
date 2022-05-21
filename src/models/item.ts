@@ -1,16 +1,16 @@
 export interface Item {
-  id: String;
-  title: String;
+  id: string;
+  title: string;
   price: Price;
-  picture: String;
-  condition: String;
-  free_shipping: Boolean;
-  sold_quantity?: Number;
-  description?: String;
+  picture: string;
+  condition: string;
+  free_shipping: boolean;
+  sold_quantity?: number;
+  description?: string;
 }
 
 export interface Price {
-  currency: String;
-  amount: Number;
-  decimals: Number;
+  currency: string;
+  amount: number;
+  decimals: number | undefined;
 }

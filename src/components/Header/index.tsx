@@ -24,8 +24,8 @@ function Header() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
+    <Box sx={{ flexGrow: 1, position: "fixed" }}>
+      <AppBar>
         <Toolbar
           sx={{
             display: "flex",
