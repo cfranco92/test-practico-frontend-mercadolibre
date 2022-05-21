@@ -3,6 +3,6 @@ import { Item } from "./item";
 
 export interface Search {
   author: Author;
-  categories: String[];
+  categories: string[];
   items: Item[];
 }
