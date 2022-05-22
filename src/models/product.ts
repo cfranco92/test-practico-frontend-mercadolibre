@@ -6,3 +6,9 @@ export interface Product {
   categories: string[];
   items: Item[];
 }
+
+export interface ProductDetail {
+  author: Author;
+  item: Item;
+  categoryId: string;
+}

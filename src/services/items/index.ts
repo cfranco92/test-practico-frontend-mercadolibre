@@ -1,4 +1,5 @@
 import { ITEMS_API } from "../../constants";
+import { ProductDetail } from "../../models/product";
 import { apiBaseQuery } from "../base";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
@@ -12,7 +13,10 @@ export const itemsApi = createApi({
   tagTypes: ["Items"],
   endpoints(builder) {
     return {
-      fetchProductAndDescription: builder.query<any, FetchProductQueryParams>({
+      fetchProductAndDescription: builder.query<
+        ProductDetail,
+        FetchProductQueryParams
+      >({
         async queryFn(queryParams, queryApi, extraOptions, baseQuery) {
           const productResponse: any = await baseQuery({
             url: `/${queryParams.productId}`,
@@ -48,6 +52,7 @@ export const itemsApi = createApi({
               free_shipping: productResponse?.data.shipping.free_shipping,
               description: productDescriptionResponse?.data.plain_text,
             },
+            categoryId: productResponse?.data.category_id,
           };
 
           return {

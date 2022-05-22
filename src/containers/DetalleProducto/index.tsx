@@ -5,22 +5,34 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
 import { itemsApi } from "../../services/items";
+import { sitesApi } from "../../services/sites";
 import { useParams } from "react-router-dom";
 
 const DetalleProducto = () => {
   const { productId } = useParams<{ productId: string }>();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
+  const [categories, setCategories] = useState<string | undefined>(undefined);
 
   const [
     fetchProductAndDescription,
     { data: productAndDescriptionResponse, isError, isLoading, isSuccess },
   ] = itemsApi.endpoints.fetchProductAndDescription.useLazyQuery();
+
+  const [
+    fetchSearch,
+    {
+      data: searchResponse,
+      isError: isErrorFeatchSearch,
+      isLoading: isLoadingFetchSearch,
+      isSuccess: isFetchSearchSuccess,
+    },
+  ] = sitesApi.endpoints.fetchSearchByCategory.useLazyQuery();
 
   useEffect(() => {
     if (productId) {
@@ -30,15 +42,27 @@ const DetalleProducto = () => {
 
   useEffect(() => {
     if (productAndDescriptionResponse) {
-      console.log(productAndDescriptionResponse);
+      fetchSearch({
+        categoryId: productAndDescriptionResponse.categoryId,
+      });
     }
-  }, [productAndDescriptionResponse]);
+  }, [fetchSearch, productAndDescriptionResponse]);
+
+  useEffect(() => {
+    if (searchResponse) setCategories(searchResponse.join(" |"));
+  }, [searchResponse]);
+
+  if (isError || isErrorFeatchSearch) {
+    return <div>Something went wrong</div>;
+  }
+
+  if (isLoading || isLoadingFetchSearch) {
+    return <Loader />;
+  }
 
   return (
     <Layout id="detalle-producto">
-      {isLoading && <Loader />}
-      {isError && "Something went wrong"}
-      {isSuccess && (
+      {isFetchSearchSuccess && (
         <Box
           sx={{
             display: "flex",
@@ -49,11 +73,21 @@ const DetalleProducto = () => {
         >
           <Box
             sx={{
+              height: "3rem",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="body1" color="initial">
+              {categories}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
               display: "flex",
               flexDirection: "row",
               justifyContent: "space-between",
               backgroundColor: "white",
-              mt: "3rem",
               pt: "2rem",
               px: "2rem",
             }}

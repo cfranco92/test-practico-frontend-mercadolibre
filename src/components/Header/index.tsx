@@ -26,9 +26,9 @@ function Header() {
   };
 
   return (
-    <Box sx={{ position: "fixed" }}>
+    <Box>
       <AppBar sx={{ px: matches ? "8.5rem" : "2rem", m: 0 }}>
-        <Toolbar>
+        <Toolbar sx={{}}>
           <Link to="/">
             <img src={LOGO_MERCADO_LIBRE} alt="Mercadolibre" />
           </Link>

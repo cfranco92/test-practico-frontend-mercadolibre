@@ -33,8 +33,6 @@ const ResultadosBusqueda = () => {
     }
   }, [searchResponse]);
 
-  console.log(searchResponse);
-
   return (
     <Layout id="resultados-busqueda">
       {isLoading && <Loader />}
