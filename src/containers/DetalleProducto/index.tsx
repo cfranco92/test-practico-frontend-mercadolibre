@@ -21,7 +21,7 @@ const DetalleProducto = () => {
 
   const [
     fetchProductAndDescription,
-    { data: productAndDescriptionResponse, isError, isLoading, isSuccess },
+    { data: productAndDescriptionResponse, isError, isLoading },
   ] = itemsApi.endpoints.fetchProductAndDescription.useLazyQuery();
 
   const [
