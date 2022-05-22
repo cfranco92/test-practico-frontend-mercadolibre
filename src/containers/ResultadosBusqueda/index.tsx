@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
-import { Box } from "@mui/material";
 import { Item } from "../../models/item";
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
@@ -12,9 +12,11 @@ import useQueryParams from "../../hooks/useQueryParams";
 
 const ResultadosBusqueda = () => {
   // const classes = useStyles();
-
+  const theme = useTheme();
+  const matches = useMediaQuery(theme.breakpoints.up("md"));
   const queryParams = useQueryParams();
   const search = queryParams.get("search") ?? undefined;
+  const [categories, setCategories] = useState<string | undefined>(undefined);
 
   const [fetchSearch, { data: searchResponse, isError, isLoading }] =
     sitesApi.endpoints.fetchSearch.useLazyQuery();
@@ -25,16 +27,35 @@ const ResultadosBusqueda = () => {
     }
   }, [fetchSearch, search]);
 
+  useEffect(() => {
+    if (searchResponse) {
+      setCategories(searchResponse?.categories?.join(" | "));
+    }
+  }, [searchResponse]);
+
   return (
     <Layout id="resultados-busqueda">
       {isLoading && <Loader />}
       {isError && "Something went wrong"}
       <Box
         sx={{
+          px: matches ? "10rem" : "3.5rem",
+          height: "3rem",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <Typography variant="body1" color="initial">
+          {categories}
+        </Typography>
+      </Box>
+      <Box
+        sx={{
           display: "flex",
           flexDirection: "column",
           width: "100%",
-          px: "160px",
+          px: matches ? "10rem" : "3.5rem",
+          mb: "3rem",
         }}
       >
         {searchResponse &&

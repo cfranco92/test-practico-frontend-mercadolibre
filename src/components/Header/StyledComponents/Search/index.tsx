@@ -7,7 +7,7 @@ const Search = styled("div")(({ theme }) => ({
   "&:hover": {
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  width: "70vw",
+  width: "100%",
   display: "flex",
   flexDirection: "row",
   justifyContent: "end",

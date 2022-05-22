@@ -2,6 +2,7 @@ import makeStyles from "@mui/styles/makeStyles";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    minHeight: "100vh",
     height: "100%",
     overflow: "hidden",
     width: "100vw",
