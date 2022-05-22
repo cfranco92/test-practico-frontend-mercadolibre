@@ -1,10 +1,10 @@
 import { ITEMS_API } from "../../constants";
-import { Product } from "../../models/product";
+import { ProductDetail } from "../../models/product";
 import { apiBaseQuery } from "../base";
 import { createApi } from "@reduxjs/toolkit/query/react";
 
 interface FetchProductQueryParams {
-  id: string;
+  productId: string;
 }
 
 export const itemsApi = createApi({
@@ -13,24 +13,56 @@ export const itemsApi = createApi({
   tagTypes: ["Items"],
   endpoints(builder) {
     return {
-      fetchProduct: builder.query<Product, FetchProductQueryParams>({
-        query: (queryParams) => ({
-          url: `/${queryParams.id}`,
-          method: "GET",
-          data: {},
-        }),
-        providesTags: ["Items"],
-      }),
-      fetchProductDescription: builder.query<Product, FetchProductQueryParams>({
-        query: (queryParams) => ({
-          url: `/${queryParams.id}/description`,
-          method: "GET",
-          data: {},
-        }),
+      fetchProductAndDescription: builder.query<
+        ProductDetail,
+        FetchProductQueryParams
+      >({
+        async queryFn(queryParams, queryApi, extraOptions, baseQuery) {
+          const productResponse: any = await baseQuery({
+            url: `/${queryParams.productId}`,
+          });
+
+          if (productResponse.error) {
+            return { error: productResponse.error };
+          }
+
+          const productDescriptionResponse: any = await baseQuery({
+            url: `/${queryParams.productId}/description`,
+          });
+
+          if (productDescriptionResponse.error) {
+            return { error: productDescriptionResponse.error };
+          }
+
+          const response = {
+            author: {
+              name: "Cristian",
+              lastname: "Franco",
+            },
+            item: {
+              id: productResponse?.data.id,
+              title: productResponse?.data.title,
+              price: {
+                amount: productResponse?.data.price,
+                currency: productResponse?.data.currency_id,
+                decimals: undefined,
+              },
+              picture: productResponse?.data.thumbnail,
+              condition: productResponse?.data.condition,
+              free_shipping: productResponse?.data.shipping.free_shipping,
+              description: productDescriptionResponse?.data.plain_text,
+            },
+            categoryId: productResponse?.data.category_id,
+          };
+
+          return {
+            data: response,
+          };
+        },
         providesTags: ["Items"],
       }),
     };
   },
 });
 
-export const { useFetchProductQuery } = itemsApi;
+export const { useFetchProductAndDescriptionQuery } = itemsApi;

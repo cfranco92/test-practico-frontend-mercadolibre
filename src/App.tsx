@@ -16,7 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<CajaBusqueda />} />
           <Route path="/items" element={<ResultadosBusqueda />} />
-          <Route path="/items/:id" element={<DetalleProducto />} />
+          <Route path="/items/:productId" element={<DetalleProducto />} />
         </Routes>
       </Suspense>
     </BrowserRouter>

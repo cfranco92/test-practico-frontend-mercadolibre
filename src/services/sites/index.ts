@@ -1,3 +1,4 @@
+import { Product } from "../../models/product";
 import { SITES_API } from "../../constants";
 import { Search } from "../../models/search";
 import { apiBaseQuery } from "../base";
@@ -5,6 +6,9 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 
 interface FetchProductQueryParams {
   query: string;
+}
+interface FetchSearchByCategoryQueryParams {
+  categoryId: string;
 }
 
 interface SiteData {
@@ -36,7 +40,7 @@ export const sitesApi = createApi({
   tagTypes: ["Sites"],
   endpoints(builder) {
     return {
-      fetchSearch: builder.query<Object, FetchProductQueryParams>({
+      fetchSearch: builder.query<Product, FetchProductQueryParams>({
         query: (queryParams) => ({
           url: `/MLA/search?q=${queryParams.query}`,
           method: "GET",
@@ -44,6 +48,19 @@ export const sitesApi = createApi({
         providesTags: ["Sites"],
         transformResponse: (data: SiteData) => {
           return sitesFromData(data);
+        },
+      }),
+      fetchSearchByCategory: builder.query<
+        any,
+        FetchSearchByCategoryQueryParams
+      >({
+        query: (queryParams) => ({
+          url: `/MLA/search?category=${queryParams.categoryId}`,
+          method: "GET",
+        }),
+        providesTags: ["Sites"],
+        transformResponse: (data: any) => {
+          return categoriesFromData(data.filters);
         },
       }),
     };
