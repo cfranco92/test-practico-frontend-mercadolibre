@@ -1,11 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Divider, Typography } from '@mui/material';
 
-import { Item } from "../../../../models/item";
-import { formatPrice } from "../../../../utils/formatPrice";
-import useStyles from "./styles";
+import { Item } from 'models/item';
+import { formatPrice } from 'utils/formatPrice';
+import useStyles from './styles';
 
 interface ProductCardProps {
   product: Item;
@@ -24,26 +24,18 @@ const ProductCard = ({ product }: ProductCardProps) => {
               <Typography
                 variant="subtitle1"
                 color="initial"
-                className={classes.amountText}
+                sx={{ marginLeft: '15px', fontSize: '1.3rem' }}
               >
                 {formatPrice(product.price.amount)}
               </Typography>
             </Box>
-            <Typography
-              variant="body1"
-              color="initial"
-              className={classes.title}
-            >
+            <Typography variant="body1" color="initial" sx={{ margin: '5px 0px 0px 15px' }}>
               {product.title}
             </Typography>
           </Box>
         </Box>
         <Box className={classes.conditionBox}>
-          <Typography
-            variant="body1"
-            color="initial"
-            className={classes.condition}
-          >
+          <Typography variant="body1" color="initial" sx={{ fontSize: '0.8rem' }}>
             {product.condition}
           </Typography>
         </Box>
