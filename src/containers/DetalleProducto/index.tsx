@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+
 import {
   Box,
   Button,
@@ -13,8 +14,10 @@ import { formatPrice } from "../../utils/formatPrice";
 import { itemsApi } from "../../services/items";
 import { sitesApi } from "../../services/sites";
 import { useParams } from "react-router-dom";
+import useStyles from "./styles";
 
 const DetalleProducto = () => {
+  const classes = useStyles();
   const { productId } = useParams<{ productId: string }>();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
@@ -66,85 +69,53 @@ const DetalleProducto = () => {
       {isFetchSearchSuccess && productAndDescriptionResponse && (
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
             px: matches ? "10rem" : "3.5rem",
           }}
+          className={classes.rootBox}
         >
-          <Box
-            sx={{
-              height: "3rem",
-              display: "flex",
-              alignItems: "center",
-            }}
-          >
+          <Box className={classes.categoriesBox}>
             <Typography variant="body1" color="initial">
               {categories ? categories : "N/A"}
             </Typography>
           </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              backgroundColor: "white",
-              pt: "2rem",
-              px: "2rem",
-            }}
-          >
+          <Box className={classes.imageTitleBox}>
             <img
               src={productAndDescriptionResponse.item.picture}
               alt="Product"
               width={400}
             />
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                maxWidth: "15rem",
-              }}
-            >
+            <Box className={classes.productNameAmountBox}>
               <Typography variant="subtitle2" color="initial">
                 {productAndDescriptionResponse.item.condition.toUpperCase()}
               </Typography>
               <Typography
                 variant="subtitle2"
                 color="initial"
-                sx={{
-                  fontSize: "1.5rem",
-                  fontWeight: "bold",
-                }}
+                className={classes.productTitle}
               >
                 {productAndDescriptionResponse.item.title}
               </Typography>
               <Typography
                 variant="subtitle1"
                 color="initial"
-                sx={{ mt: "1rem", fontSize: "2rem" }}
+                className={classes.productAmount}
               >
                 {formatPrice(productAndDescriptionResponse.item.price.amount)}
               </Typography>
               <Button
                 variant="contained"
                 color="info"
-                sx={{ mt: "2rem", height: "3rem" }}
+                className={classes.button}
               >
                 Comprar
               </Button>
             </Box>
           </Box>
-          <Box
-            sx={{
-              backgroundColor: "white",
-              p: "3rem 20rem 2rem 2rem",
-              mb: "3rem",
-            }}
-          >
+          <Box className={classes.productDescriptionBox}>
             <Typography
               variant="subtitle1"
               color="initial"
-              sx={{ fontSize: "2rem", mb: "1rem" }}
+              className={classes.productDescriptionTitle}
             >
               Descripción del producto
             </Typography>

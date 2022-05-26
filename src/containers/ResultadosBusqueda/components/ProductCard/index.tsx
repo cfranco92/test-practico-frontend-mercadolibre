@@ -5,32 +5,26 @@ import { Box, Divider, Typography } from "@mui/material";
 
 import { Item } from "../../../../models/item";
 import { formatPrice } from "../../../../utils/formatPrice";
+import useStyles from "./styles";
 
 interface ProductCardProps {
   product: Item;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const classes = useStyles();
+
   return (
     <Link to={`/items/${product.id}`}>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          backgroundColor: "white",
-          py: "10px",
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <img src={product.picture} alt="" width={140} height={140} />
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+      <Box className={classes.rootBox}>
+        <Box className={classes.productNameImageBox}>
+          <img src={product.picture} alt="Product" width={140} height={140} />
+          <Box className={classes.flexColumn}>
+            <Box className={classes.flexColumn}>
               <Typography
                 variant="subtitle1"
                 color="initial"
-                sx={{ ml: "15px", fontSize: "1.3rem" }}
+                className={classes.amountText}
               >
                 {formatPrice(product.price.amount)}
               </Typography>
@@ -38,17 +32,17 @@ const ProductCard = ({ product }: ProductCardProps) => {
             <Typography
               variant="body1"
               color="initial"
-              sx={{ mt: "5px", ml: "15px" }}
+              className={classes.title}
             >
               {product.title}
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ pr: "100px" }}>
+        <Box className={classes.conditionBox}>
           <Typography
             variant="body1"
             color="initial"
-            sx={{ fontSize: "0.8rem" }}
+            className={classes.condition}
           >
             {product.condition}
           </Typography>
