@@ -1,5 +1,5 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { Item } from "../../models/item";
 import Layout from "../../components/Layout";
@@ -46,7 +46,7 @@ const ResultadosBusqueda = () => {
         }}
       >
         <Typography variant="body1" color="initial">
-          {categories}
+          {categories ? categories : "N/A"}
         </Typography>
       </Box>
       <Box

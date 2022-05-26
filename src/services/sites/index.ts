@@ -1,8 +1,8 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { Product } from "../../models/product";
 import { SITES_API } from "../../constants";
 import { Search } from "../../models/search";
 import { apiBaseQuery } from "../base";
-import { createApi } from "@reduxjs/toolkit/query/react";
 
 interface FetchProductQueryParams {
   query: string;
@@ -74,7 +74,7 @@ function sitesFromData(data: SiteData) {
       lastname: "Franco",
     },
     categories: categoriesFromData(data.filters),
-    items: data.results.map((item: ItemData) => itemFromData(item)),
+    items: data.results.map((item: ItemData) => itemFromData(item)).slice(0, 4),
   };
   return site;
 }

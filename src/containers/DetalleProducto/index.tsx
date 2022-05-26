@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -5,10 +6,10 @@ import {
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
 
 import Layout from "../../components/Layout";
 import Loader from "../../components/Loader";
+import { formatPrice } from "../../utils/formatPrice";
 import { itemsApi } from "../../services/items";
 import { sitesApi } from "../../services/sites";
 import { useParams } from "react-router-dom";
@@ -49,7 +50,7 @@ const DetalleProducto = () => {
   }, [fetchSearch, productAndDescriptionResponse]);
 
   useEffect(() => {
-    if (searchResponse) setCategories(searchResponse.join(" |"));
+    if (searchResponse) setCategories(searchResponse.join(" | "));
   }, [searchResponse]);
 
   if (isError || isErrorFeatchSearch) {
@@ -62,7 +63,7 @@ const DetalleProducto = () => {
 
   return (
     <Layout id="detalle-producto">
-      {isFetchSearchSuccess && (
+      {isFetchSearchSuccess && productAndDescriptionResponse && (
         <Box
           sx={{
             display: "flex",
@@ -79,7 +80,7 @@ const DetalleProducto = () => {
             }}
           >
             <Typography variant="body1" color="initial">
-              {categories}
+              {categories ? categories : "N/A"}
             </Typography>
           </Box>
           <Box
@@ -93,7 +94,7 @@ const DetalleProducto = () => {
             }}
           >
             <img
-              src={productAndDescriptionResponse?.item?.picture}
+              src={productAndDescriptionResponse.item.picture}
               alt="Product"
               width={400}
             />
@@ -101,19 +102,34 @@ const DetalleProducto = () => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                maxWidth: "10rem",
+                maxWidth: "15rem",
               }}
             >
-              <Typography variant="body2" color="initial">
-                {productAndDescriptionResponse?.item?.condition.toUpperCase()}
+              <Typography variant="subtitle2" color="initial">
+                {productAndDescriptionResponse.item.condition.toUpperCase()}
               </Typography>
-              <Typography variant="body2" color="initial">
-                {productAndDescriptionResponse?.item?.title}
+              <Typography
+                variant="subtitle2"
+                color="initial"
+                sx={{
+                  fontSize: "1.5rem",
+                  fontWeight: "bold",
+                }}
+              >
+                {productAndDescriptionResponse.item.title}
               </Typography>
-              <Typography variant="body2" color="initial">
-                ${productAndDescriptionResponse?.item?.price.amount}
+              <Typography
+                variant="subtitle1"
+                color="initial"
+                sx={{ mt: "1rem", fontSize: "2rem" }}
+              >
+                {formatPrice(productAndDescriptionResponse.item.price.amount)}
               </Typography>
-              <Button variant="contained" color="info" sx={{ mt: "2rem" }}>
+              <Button
+                variant="contained"
+                color="info"
+                sx={{ mt: "2rem", height: "3rem" }}
+              >
                 Comprar
               </Button>
             </Box>
@@ -121,15 +137,19 @@ const DetalleProducto = () => {
           <Box
             sx={{
               backgroundColor: "white",
-              p: "5rem 15rem 2rem 2rem",
+              p: "3rem 20rem 2rem 2rem",
               mb: "3rem",
             }}
           >
-            <Typography variant="h4" color="initial">
+            <Typography
+              variant="subtitle1"
+              color="initial"
+              sx={{ fontSize: "2rem", mb: "1rem" }}
+            >
               Descripción del producto
             </Typography>
-            <Typography variant="body2" color="initial">
-              {productAndDescriptionResponse?.item?.description}
+            <Typography variant="body1" color="GrayText">
+              {productAndDescriptionResponse.item.description}
             </Typography>
           </Box>
         </Box>

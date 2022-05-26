@@ -1,7 +1,7 @@
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { ITEMS_API } from "../../constants";
 import { ProductDetail } from "../../models/product";
 import { apiBaseQuery } from "../base";
-import { createApi } from "@reduxjs/toolkit/query/react";
 
 interface FetchProductQueryParams {
   productId: string;
@@ -17,7 +17,7 @@ export const itemsApi = createApi({
         ProductDetail,
         FetchProductQueryParams
       >({
-        async queryFn(queryParams, queryApi, extraOptions, baseQuery) {
+        async queryFn(queryParams, __queryApi, __extraOptions, baseQuery) {
           const productResponse: any = await baseQuery({
             url: `/${queryParams.productId}`,
           });
