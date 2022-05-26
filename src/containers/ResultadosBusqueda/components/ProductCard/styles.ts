@@ -1,6 +1,6 @@
 import makeStyles from "@mui/styles/makeStyles";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   rootBox: {
     width: "100%",
     display: "flex",
@@ -17,18 +17,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
-  amountText: {
-    marginLeft: "15px",
-    fontSize: "1.3rem",
-  },
-  title: {
-    margin: "5px 0 0 15px",
-  },
   conditionBox: {
     paddingRight: "100px",
-  },
-  condition: {
-    fontSize: "0.8rem",
   },
 }));
 

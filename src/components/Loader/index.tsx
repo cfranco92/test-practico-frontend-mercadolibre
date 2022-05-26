@@ -1,7 +1,8 @@
-import { Box, CircularProgress } from "@mui/material";
+import React from 'react';
 
-import React from "react";
-import useStyles from "./styles";
+import { Box, CircularProgress } from '@mui/material';
+
+import useStyles from './styles';
 
 const Loader = () => {
   const classes = useStyles();
