@@ -1,7 +1,5 @@
-import "./App.css";
-
-import { BrowserRouter, Route, Routes } from "react-router-dom";
 import React, { Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import CajaBusqueda from "./containers/CajaBusqueda";
 import DetalleProducto from "./containers/DetalleProducto";

@@ -1,42 +1,50 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
 import { Box, Divider, Typography } from "@mui/material";
 
 import { Item } from "../../../../models/item";
-import { Link } from "react-router-dom";
-import React from "react";
+import { formatPrice } from "../../../../utils/formatPrice";
+import useStyles from "./styles";
 
 interface ProductCardProps {
   product: Item;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const classes = useStyles();
+
   return (
     <Link to={`/items/${product.id}`}>
-      <Box
-        sx={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          backgroundColor: "white",
-          py: "10px",
-        }}
-      >
-        <Box sx={{ display: "flex", flexDirection: "row" }}>
-          <img src={product.picture} alt="" width={120} height={120} />
-          <Box sx={{ display: "flex", flexDirection: "column" }}>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
-              <Typography variant="body1" color="initial">
-                ${product.price.amount}
+      <Box className={classes.rootBox}>
+        <Box className={classes.productNameImageBox}>
+          <img src={product.picture} alt="Product" width={140} height={140} />
+          <Box className={classes.flexColumn}>
+            <Box className={classes.flexColumn}>
+              <Typography
+                variant="subtitle1"
+                color="initial"
+                className={classes.amountText}
+              >
+                {formatPrice(product.price.amount)}
               </Typography>
             </Box>
-            <Typography variant="body1" color="initial" sx={{ mt: "12px" }}>
+            <Typography
+              variant="body1"
+              color="initial"
+              className={classes.title}
+            >
               {product.title}
             </Typography>
           </Box>
         </Box>
-        <Box sx={{ pr: "100px" }}>
-          <Typography variant="body1" color="initial">
-            {product.condition.toUpperCase()}
+        <Box className={classes.conditionBox}>
+          <Typography
+            variant="body1"
+            color="initial"
+            className={classes.condition}
+          >
+            {product.condition}
           </Typography>
         </Box>
       </Box>
