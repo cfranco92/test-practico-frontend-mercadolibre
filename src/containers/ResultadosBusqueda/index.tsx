@@ -1,5 +1,5 @@
-import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Box, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 import { Item } from "../../models/item";
 import Layout from "../../components/Layout";
@@ -7,11 +7,10 @@ import Loader from "../../components/Loader";
 import ProductCard from "./components/ProductCard";
 import { sitesApi } from "../../services/sites";
 import useQueryParams from "../../hooks/useQueryParams";
-
-// import useStyles from "./styles";
+import useStyles from "./styles";
 
 const ResultadosBusqueda = () => {
-  // const classes = useStyles();
+  const classes = useStyles();
   const theme = useTheme();
   const matches = useMediaQuery(theme.breakpoints.up("md"));
   const queryParams = useQueryParams();
@@ -37,32 +36,31 @@ const ResultadosBusqueda = () => {
     <Layout id="resultados-busqueda">
       {isLoading && <Loader />}
       {isError && "Something went wrong"}
-      <Box
-        sx={{
-          px: matches ? "10rem" : "3.5rem",
-          height: "3rem",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <Typography variant="body1" color="initial">
-          {categories}
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          px: matches ? "10rem" : "3.5rem",
-          mb: "3rem",
-        }}
-      >
-        {searchResponse &&
-          Object(searchResponse).items.map((item: Item) => (
-            <ProductCard product={item} key={item.id} />
-          ))}
-      </Box>
+      {searchResponse && (
+        <>
+          <Box
+            sx={{
+              px: matches ? "10rem" : "3.5rem",
+            }}
+            className={classes.categoriesBox}
+          >
+            <Typography variant="body1" color="initial">
+              {categories ? categories : "N/A"}
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              px: matches ? "10rem" : "3.5rem",
+            }}
+            className={classes.resultsBox}
+          >
+            {searchResponse &&
+              Object(searchResponse).items.map((item: Item) => (
+                <ProductCard product={item} key={item.id} />
+              ))}
+          </Box>
+        </>
+      )}
     </Layout>
   );
 };
