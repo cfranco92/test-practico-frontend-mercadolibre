@@ -1,25 +1,26 @@
-import "./index.css";
+import React from 'react';
+import { Provider } from 'react-redux';
+import ReactDOM from 'react-dom/client';
 
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import './index.css';
 
-import App from "./App";
-import { Provider } from "react-redux";
-import React from "react";
-import ReactDOM from "react-dom/client";
-import reportWebVitals from "./reportWebVitals";
-import store from "./store/index";
-import theme from "./theme";
+import { CssBaseline, StyledEngineProvider, ThemeProvider } from '@mui/material';
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import store from './store/index';
+import theme from './theme';
+
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <App />
-      </ThemeProvider>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </StyledEngineProvider>
     </Provider>
   </React.StrictMode>
 );

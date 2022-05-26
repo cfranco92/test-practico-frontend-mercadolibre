@@ -23,26 +23,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     maxWidth: "15rem",
   },
-  productTitle: {
-    fontSize: "1.5rem",
-    fontWeight: "bold",
-  },
-  productAmount: {
-    marginTop: "1rem",
-    fontSize: "2rem",
-  },
-  button: {
-    marginTop: "2rem",
-    height: "3rem",
-  },
   productDescriptionBox: {
     backgroundColor: "white",
     padding: "3rem 20rem 2rem 2rem",
     marginBottom: "3rem",
-  },
-  productDescriptionTitle: {
-    fontSize: "2rem",
-    marginBottom: "1rem",
   },
 }));
 
